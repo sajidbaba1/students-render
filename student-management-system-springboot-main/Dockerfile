@@ -1,9 +1,13 @@
-FROM maven:3.8.5-openjdk-17 AS build
-COPY . .
-RUN mvn clean package -DskipTests
+FROM openjdk:17-jdk-slim
 
-FROM openjdk:17.0.1-jdk-slim
+# Set the working directory
 WORKDIR /app
-COPY --from=build target/demo-0.0.1-SNAPSHOT.jar demo.jar
+
+# Copy the build jar file into the container
+COPY target/student-management-system-*.jar app.jar
+
+# Expose the application port (change if necessary)
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "demo.jar"]
+
+# Command to run the application
+ENTRYPOINT ["java", "-jar", "app.jar"]
