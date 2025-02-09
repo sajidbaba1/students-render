@@ -1,14 +1,15 @@
-FROM openjdk:17-jdk-slim
+# Use an official JDK runtime as a parent image
+FROM adoptopenjdk/openjdk10-openj9
 
-# Set the working directory
+
+# Set the working directory inside the container
 WORKDIR /app
 
 # Copy the build jar file into the container
-COPY target/student-management-system-0.0.1-SNAPSHOT.jar
+COPY target/student-management-system-0.0.1-SNAPSHOT.jar app.jar
 
 # Expose the application port (change if necessary)
 EXPOSE 8080
 
 # Command to run the application
-ENTRYPOINT ["java", "-jar", "app.jar"]
-
+CMD ["java", "-jar", "app.jar"]
