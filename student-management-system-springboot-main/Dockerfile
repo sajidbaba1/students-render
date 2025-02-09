@@ -1,8 +1,8 @@
 # Stage 1: Build the application using Maven
-FROM maven:3.8.6-openjdk-17-slim AS builder
+FROM maven:3.8.6-openjdk-17 AS builder
 WORKDIR /app
 
-# Copy the Maven project file and download dependencies (cached unless pom.xml changes)
+# Copy pom.xml and download dependencies (cached unless pom.xml changes)
 COPY pom.xml .
 RUN mvn dependency:go-offline
 
@@ -14,7 +14,7 @@ RUN mvn clean package -DskipTests
 FROM openjdk:17-slim
 WORKDIR /app
 
-# Copy the built JAR from the builder stage
+# Copy the built JAR from the builder stage to the runtime image
 COPY --from=builder /app/target/student-management-system-0.0.1-SNAPSHOT.jar app.jar
 
 EXPOSE 8080
