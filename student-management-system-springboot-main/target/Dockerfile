@@ -6,7 +6,7 @@ FROM adoptopenjdk/openjdk10-openj9
 WORKDIR /app
 
 # Copy the build jar file into the container
-COPY target/student-management-system-0.0.1-SNAPSHOT.jar app.jar
+COPY student-management-system-0.0.1-SNAPSHOT.jar app.jar
 
 # Expose the application port (change if necessary)
 EXPOSE 8080
